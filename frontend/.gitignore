@@ -1,0 +1,9 @@
+.env
+sihenv
+node_modules
+.DS_Store
+npm-debug.log
+package-lock.json
+yarn.lock
+__pycache__
+*.pyc

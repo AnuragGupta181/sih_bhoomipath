@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+
+@theme inline {
+  /* Configure your theme variables here */
+  --font-display: "Inter", "sans-serif";
+  --color-primary-500: oklch(0.84 0.18 117.33);
+  --spacing: 0.25rem;
+}
+
+@layer base {
+  :root {
+    /* BhoomiPath Light Theme Colors */
+    --background: 49 100% 85%;  /* vanilla */
+    --foreground: 31 89% 28%;   /* chocolate */
+
+    --card: 49 80% 92%;         /* lighter vanilla */
+    --card-foreground: 31 89% 28%; /* chocolate */
+
+    --popover: 49 80% 92%;      /* lighter vanilla */
+    --popover-foreground: 31 89% 28%; /* chocolate */
+
+    --primary: 87 92% 28%;      /* avocado */
+    --primary-foreground: 49 100% 85%; /* vanilla */
+
+    --secondary: 32 93% 68%;    /* earth_yellow */
+    --secondary-foreground: 31 89% 28%; /* chocolate */
+
+    --muted: 49 60% 75%;        /* muted vanilla */
+    --muted-foreground: 31 60% 40%; /* muted chocolate */
+
+    --accent: 74 87% 44%;       /* yellow_green */
+    --accent-foreground: 31 89% 28%; /* chocolate */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 49 100% 85%;
+
+    --border: 49 40% 70%;       /* vanilla border */
+    --input: 49 60% 80%;        /* vanilla input */
+    --ring: 87 92% 28%;         /* avocado */
+
+    --radius: 0.5rem;
+    
+    /* BhoomiPath Earth-tone Design Tokens */
+    --bhoomi-avocado: 87 92% 28%;     /* primary accent */
+    --bhoomi-vanilla: 49 100% 85%;    /* background */
+    --bhoomi-vanilla-light: 49 80% 92%; /* card background */
+    --bhoomi-earth-yellow: 32 93% 68%; /* secondary accent */
+    --bhoomi-yellow-green: 74 87% 44%; /* interactive */
+    --bhoomi-chocolate: 31 89% 28%;    /* text */
+    
+    /* Light Theme Gradients */
+    --gradient-primary: linear-gradient(180deg, #69A619 0%, #B9E346 , #76B327 0%);
+    --gradient-hero: linear-gradient(180deg, hsl(var(--bhoomi-vanilla)), hsl(var(--bhoomi-vanilla-light)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--bhoomi-vanilla-light)), hsl(var(--bhoomi-vanilla)));
+    
+    /* Light Theme Shadows */
+    --shadow-glow: 0 0 30px hsl(var(--bhoomi-avocado) / 0.2);
+    --shadow-card: 0 10px 30px -10px hsl(var(--bhoomi-chocolate) / 0.1);
+    
+  /* Animations */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Animation Definitions */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+    --sidebar-background: 49 80% 92%;  /* light vanilla */
+    --sidebar-foreground: 31 89% 28%;  /* chocolate */
+    --sidebar-primary: 87 92% 28%;     /* avocado */
+    --sidebar-primary-foreground: 49 100% 85%; /* vanilla */
+    --sidebar-accent: 32 93% 68%;      /* earth_yellow */
+    --sidebar-accent-foreground: 31 89% 28%; /* chocolate */
+    --sidebar-border: 49 40% 70%;      /* vanilla border */
+    --sidebar-ring: 87 92% 28%;        /* avocado */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary;
+  }
+}
+
+@layer components {
+  /* BhoomiPath component styles */
+  .bhoomi-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .bhoomi-card {
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+  
+  .bhoomi-hero-bg {
+    background: var(--gradient-hero);
+  }
+  
+  .bhoomi-text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .bhoomi-network-node {
+    @apply relative rounded-full bg-primary transition-all duration-300 hover:scale-110;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+  }
+  
+  .bhoomi-network-line {
+    @apply absolute opacity-30;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.5), transparent);
+  }
+  
+  .bhoomi-btn-glow {
+    @apply relative overflow-hidden transition-all duration-300;
+    background: hsl(var(--primary));
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  
+  .bhoomi-btn-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.5);
+    transform: translateY(-1px);
+  }
+  
+  .bhoomi-input {
+    @apply w-full px-4 py-3 rounded-xl border border-input bg-card/50 text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200;
+  }
+
+  /* Animation Classes */
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Backward compatibility - keep earthster classes for now */
+  .earthster-glow { @apply bhoomi-glow; }
+  .earthster-card { @apply bhoomi-card; }
+  .earthster-hero-bg { @apply bhoomi-hero-bg; }
+  .earthster-text-gradient { @apply bhoomi-text-gradient; }
+  .earthster-network-node { @apply bhoomi-network-node; }
+  .earthster-network-line { @apply bhoomi-network-line; }
+  .earthster-btn-glow { @apply bhoomi-btn-glow; }
+  .earthster-input { @apply bhoomi-input; }
+}
