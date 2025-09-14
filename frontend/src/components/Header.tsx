@@ -69,6 +69,9 @@ const Header = () => {
           <a href="class" className="text-foreground hover:text-primary font-bold transition-colors">
             Predict_Class
           </a>
+           <a href="/news" className="text-foreground hover:text-primary font-bold transition-colors">
+            News
+          </a>
           <a
             href="contact"
             className="text-foreground hover:text-primary font-bold transition-colors"
@@ -149,6 +152,9 @@ const Header = () => {
           </a>
           <a href="class" className="text-foreground hover:text-primary transition-colors">
             Predict_Class
+          </a>
+            <a href="/news" className="text-foreground hover:text-primary transition-colors">
+            News
           </a>
           <a
             href="contact"

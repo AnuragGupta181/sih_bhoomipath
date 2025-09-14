@@ -12,6 +12,10 @@ import Class from "./components/Class";
 import Report from "./components/Report"
 import Contact from './components/ContactSection'
 import Loginaloo from './components/loginaloo'
+import News from './components/News'
+import SummarizedNews from './components/summarizedNews'
+
+
 
 
 
@@ -31,6 +35,9 @@ const App = () => (
           <Route path="/report" element={<Report />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/loginaloo" element={<Loginaloo />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/summnews" element={<SummarizedNews />} />
+
 
 
 

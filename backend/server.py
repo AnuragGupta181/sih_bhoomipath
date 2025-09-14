@@ -8,6 +8,8 @@ from tools import predictLca,lca_chat
 from graphs import graphs
 from ClassPred import category
 from MetalSurface import predict_metal_damage
+from fetch import FetchData
+from model import summarize
 
 app = Flask(__name__)
 CORS(app)
@@ -121,6 +123,36 @@ def predict_damage():
 
 
 
+news = FetchData()
+
+
+
+@app.route('/fetch/google')
+def google():
+    return jsonify(news.google())
+
+
+@app.route('/fetch/youtube')
+def youtube():
+    return jsonify(news.youtubenews())
+
+
+@app.route('/fetch/newsapi')
+def newsapi():
+    return jsonify(news.newsapi())
+
+
+
+
+@app.route('/model/summarise')
+def summarise():
+    url = request.args.get('url')
+    if not url:
+        return jsonify({"error": "Please provide a url parameter"}), 400
+
+    summary_text = summarize(url=url)
+    print("Generated Summary:", summary_text)  # Debugging ke liye
+    return jsonify({"summary": summary_text})
 
 
 @app.route("/uploads/<filename>")
