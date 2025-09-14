@@ -15,6 +15,14 @@ CORS(app)
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+@app.route("/", methods=['GET'])
+def home():
+    return jsonify({"message": "Welcome to the BhoomiPath server !"})
+
+@app.route("/health", methods=['GET'])
+def health_check():
+    return jsonify({"status": "healthy"})
+
 
 
 @app.route("/predict_missing", methods=['POST'])
