@@ -13,7 +13,7 @@ export default function SummarizedNews() {
     const fetchSummary = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/model/summarise?url=${encodeURIComponent(url)}`
+          `${import.meta.env.VITE_API_URL}/model/summarise?url=${encodeURIComponent(url)}`
         );
         const data = await res.json();
         setSummary(data.summary);

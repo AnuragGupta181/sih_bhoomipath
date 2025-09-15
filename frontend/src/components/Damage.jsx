@@ -35,7 +35,7 @@ function App() {
     try {
       const base64Image = await toBase64(selectedImage);
 
-      const response = await fetch("http://127.0.0.1:5000/damage", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/damage`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

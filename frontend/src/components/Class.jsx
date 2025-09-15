@@ -30,7 +30,7 @@ export default function SpectroscopyForm() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/predict_spectroscopy", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/predict_spectroscopy`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body:JSON.stringify({ specta: values })
