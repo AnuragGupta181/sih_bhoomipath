@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import confetti from "canvas-confetti";
 import Header from '@/components/Header';
-
+import FloatingChatButton from "@/components/FloatingChatButton";
 
 export default function SpectroscopyForm() {
   const [values, setValues] = useState({
@@ -54,16 +54,14 @@ export default function SpectroscopyForm() {
   };
 
   return (<>
-  
     <Header/>
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 p-6">
-        
+    <div className="min-h-screen flex items-center justify-center bhoomi-hero-bg p-6">
       <motion.div
-        className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-lg"
-        initial={{ scale: 0.9, opacity: 0 }}
+        className="bhoomi-card glass w-full max-w-lg p-8"
+        initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
       >
-        <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+        <h1 className="text-2xl font-bold text-center mb-6 bhoomi-text-gradient">
           Spectroscopy Prediction
         </h1>
 
@@ -78,12 +76,17 @@ export default function SpectroscopyForm() {
                 onChange={handleChange}
                 placeholder={`Enter ${key}`}
                 required
+                className="bhoomi-input"
               />
             </div>
           ))}
 
           <div className="col-span-3 mt-6 flex justify-center">
-            <Button type="submit" disabled={loading}>
+            <Button
+              type="submit"
+              disabled={loading}
+              className="bhoomi-btn-glow px-8 py-3 text-lg font-semibold"
+            >
               {loading ? "Predicting..." : "Submit"}
             </Button>
           </div>
@@ -91,11 +94,11 @@ export default function SpectroscopyForm() {
 
         {response && (
           <motion.div
-            className="mt-8 p-4 rounded-lg bg-green-100 text-green-800 text-center"
+            className="mt-8 p-4 rounded-lg bg-green-100 text-green-800 text-center animate-fade-in"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
           >
-            <h2 className="text-lg font-bold mb-2">🎉 Prediction Result 🎉</h2>
+            <h2 className="text-lg font-bold mb-2 bhoomi-text-gradient">🎉 Prediction Result 🎉</h2>
             <pre className="text-sm text-left overflow-x-auto">
               {JSON.stringify(response.class, null, 2)}
             </pre>
@@ -103,6 +106,7 @@ export default function SpectroscopyForm() {
         )}
       </motion.div>
     </div>
+    <FloatingChatButton />  
   </>
   );
 }

@@ -1,6 +1,6 @@
 // Update this page (the content is just a fallback if you fail to update the page)
 
-import Header from "@/components/Header";
+
 import Hero from "@/components/Hero";
 import FeatureSection from "@/components/FeatureSection";
 import NetworkSection from "@/components/NetworkSection";
@@ -10,6 +10,7 @@ import FAQ from "@/components/FAQ";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingChatButton from "@/components/FloatingChatButton";
+import Header from "@/components/Header";
 
 const Index = () => {
   return (

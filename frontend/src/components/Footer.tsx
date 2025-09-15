@@ -12,7 +12,7 @@ const Footer = () => {
               <img 
                 src={fullLogo} 
                 alt="BhoomiPath" 
-                className="h-8 w-auto"
+                className="h-24 w-300"
               />
             </div>
             

@@ -1,32 +1,27 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, MessageCircle, Wrench, Brain } from "lucide-react";
 import { useState, useEffect } from "react";
-import fullLogo from "@/assets/fulllogo.png";
+import fullLogo from "@/assets/nfulllogo.png";
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [user, setUser] = useState<{ name: string; image: string } | null>(null);
 
-  // Check localStorage for logged-in user
+  // Load user from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
   // Navbar hide/show on scroll
   useEffect(() => {
     const controlNavbar = () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY < lastScrollY || currentScrollY < 100) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(currentScrollY < lastScrollY || currentScrollY < 100);
       setLastScrollY(currentScrollY);
     };
     window.addEventListener("scroll", controlNavbar);
@@ -36,7 +31,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    window.location.href = "/"; // redirect to home
+    window.location.href = "/";
   };
 
   return (
@@ -48,11 +43,9 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <div className="text-2xl font-bold">
-            <a href="/" className="hover:opacity-80 transition-opacity">
-              <img src={fullLogo} alt="BhoomiPath" className="h-8 w-auto" />
-            </a>
-          </div>
+          <a href="/" className="text-2xl font-bold hover:opacity-80 transition-opacity">
+            <img src={fullLogo} alt="BhoomiPath" className="h-11" />
+          </a>
         </div>
 
         {/* Desktop Navigation */}
@@ -60,16 +53,49 @@ const Header = () => {
           <a href="/" className="text-foreground hover:text-primary font-bold transition-colors">
             Home
           </a>
-          <a href="/ecosathi" className="text-foreground hover:text-primary font-bold transition-colors">
-            Services
-          </a>
-          <a href="damage" className="text-foreground hover:text-primary font-bold transition-colors">
-            Check_Damage
-          </a>
-          <a href="class" className="text-foreground hover:text-primary font-bold transition-colors">
-            Predict_Class
-          </a>
-           <a href="/news" className="text-foreground hover:text-primary font-bold transition-colors">
+
+          {/* Services Dropdown (click only) */}
+          <div className="relative">
+            <button
+              onClick={() => setIsServicesOpen(!isServicesOpen)}
+              className="flex items-center space-x-1 text-foreground hover:text-primary font-bold transition-colors"
+            >
+              <span>Services</span>
+              <ChevronDown
+                className={`w-4 h-4 transform transition-transform duration-300 ${
+                  isServicesOpen ? "rotate-180" : "rotate-0"
+                }`}
+              />
+            </button>
+
+            {isServicesOpen && (
+              <div
+                className="absolute left-0 mt-2 w-48 bg-card/95 backdrop-blur-md border border-border rounded-lg shadow-lg py-2 z-50"
+                onMouseLeave={() => setIsServicesOpen(false)} // optional: closes if you leave whole dropdown
+              >
+                <a
+                  href="/ecosathi"
+                  className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/20 transition"
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" /> Chat Bot
+                </a>
+                <a
+                  href="/damage"
+                  className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/20 transition"
+                >
+                  <Wrench className="w-4 h-4 mr-2" /> Check Damage
+                </a>
+                <a
+                  href="/class"
+                  className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/20 transition"
+                >
+                  <Brain className="w-4 h-4 mr-2" /> Predict Class
+                </a>
+              </div>
+            )}
+          </div>
+
+          <a href="/news" className="text-foreground hover:text-primary font-bold transition-colors">
             News
           </a>
           <a
@@ -86,7 +112,7 @@ const Header = () => {
           </a>
         </nav>
 
-        {/* Action Buttons / User Info */}
+        {/* User + Mobile Menu */}
         <div className="flex items-center space-x-4 relative">
           {!user ? (
             <>
@@ -112,7 +138,6 @@ const Header = () => {
                 <ChevronDown className="w-4 h-4 text-foreground" />
               </button>
 
-              {/* Dropdown */}
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-40 bg-card/90 backdrop-blur-md border border-border rounded-lg shadow-lg py-2 z-50">
                   <button
@@ -144,16 +169,37 @@ const Header = () => {
           <a href="/" className="text-foreground hover:text-primary transition-colors">
             Home
           </a>
-          <a href="/ecosathi" className="text-foreground hover:text-primary transition-colors">
-            Services
-          </a>
-          <a href="damage" className="text-foreground hover:text-primary transition-colors">
-            Check_Damage
-          </a>
-          <a href="class" className="text-foreground hover:text-primary transition-colors">
-            Predict_Class
-          </a>
-            <a href="/news" className="text-foreground hover:text-primary transition-colors">
+
+          {/* Mobile Services Dropdown */}
+          <div>
+            <button
+              onClick={() => setIsServicesOpen(!isServicesOpen)}
+              className="flex items-center justify-between w-full text-left text-foreground hover:text-primary transition-colors"
+            >
+              <span>Services</span>
+              <ChevronDown
+                className={`w-4 h-4 transform transition-transform duration-300 ${
+                  isServicesOpen ? "rotate-180" : "rotate-0"
+                }`}
+              />
+            </button>
+
+            {isServicesOpen && (
+              <div className="mt-2 flex flex-col space-y-2 pl-4">
+                <a href="/ecosathi" className="flex items-center text-sm text-foreground hover:text-primary">
+                  <MessageCircle className="w-4 h-4 mr-2" /> Chat Bot
+                </a>
+                <a href="/damage" className="flex items-center text-sm text-foreground hover:text-primary">
+                  <Wrench className="w-4 h-4 mr-2" /> Check Damage
+                </a>
+                <a href="/class" className="flex items-center text-sm text-foreground hover:text-primary">
+                  <Brain className="w-4 h-4 mr-2" /> Predict Class
+                </a>
+              </div>
+            )}
+          </div>
+
+          <a href="/news" className="text-foreground hover:text-primary transition-colors">
             News
           </a>
           <a

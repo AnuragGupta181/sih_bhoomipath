@@ -101,7 +101,10 @@ const goToReport = () => {
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [chatMessages]);
 
@@ -110,15 +113,14 @@ const goToReport = () => {
     const handleScroll = () => {
       if (chatContainerRef.current) {
         const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
-        const isNearBottom = scrollTop + clientHeight >= scrollHeight - 100;
-        setShowScrollBottom(!isNearBottom);
+        setShowScrollBottom(scrollTop + clientHeight < scrollHeight - 100);
       }
     };
 
     const container = chatContainerRef.current;
     if (container) {
-      container.addEventListener('scroll', handleScroll);
-      return () => container.removeEventListener('scroll', handleScroll);
+      container.addEventListener("scroll", handleScroll);
+      return () => container.removeEventListener("scroll", handleScroll);
     }
   }, []);
 
@@ -394,47 +396,58 @@ const goToReport = () => {
       {/* Header */}
       <Card className="bhoomi-card m-4 mb-0 mt-20">
         <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2  bhoomi-text-gradient text-lg text-size-xl font-bold">
+          <CardTitle className="flex items-center gap-2 bhoomi-text-gradient text-lg text-size-xl font-bold">
             <MessageCircle className="w-5 h-5" />
-            <h1>Eco Sathi Your Personal LCA Assistant</h1>
+            <h1>Eco Sathi - Your Personal LCA Assistant</h1>
           </CardTitle>
         </CardHeader>
       </Card>
-      
+
       {/* Chat Messages - Scrollable Area */}
-      <div 
+      <div
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto p-4 pb-2 space-y-4"
+        className="flex-1 overflow-y-auto p-4 pb-2 space-y-4 bg-card/50 backdrop-blur-sm border border-border rounded-2xl"
       >
         {chatMessages.map((msg, idx) => {
           const isDisabled = disabledQuestions.has(idx);
-          
+
           return (
-            <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
-                msg.role === 'user' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted text-foreground'
-              } ${isDisabled ? 'opacity-70' : ''}`}>
+            <div
+              key={idx}
+              className={`flex ${
+                msg.role === "user" ? "justify-end" : "justify-start"
+              }`}
+            >
+              <div
+                className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
+                  msg.role === "user"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-foreground"
+                } ${isDisabled ? "opacity-70" : ""}`}
+              >
                 <div className="whitespace-pre-wrap">{msg.content}</div>
-                
                 {/* Show unit hint for current number questions */}
-                {msg.role === 'assistant' && msg.questionType === 'number' && msg.unit && idx === currentQuestionIndex && (
-                  <p className="text-xs text-muted-foreground mt-2">Unit: {msg.unit}</p>
-                )}
+                {msg.role === "assistant" &&
+                  msg.questionType === "number" &&
+                  msg.unit &&
+                  idx === currentQuestionIndex && (
+                    <p className="text-xs text-muted-foreground mt-2">
+                      Unit: {msg.unit}
+                    </p>
+                  )}
               </div>
             </div>
           );
         })}
-        
+
         {/* Scroll to bottom button */}
         {showScrollBottom && (
           <Button
-            className="fixed bottom-32 right-4 rounded-full p-2 shadow-lg z-10"
+            className="fixed bottom-4 right-4 rounded-full p-3 shadow-lg z-10 bg-primary text-primary-foreground hover:bg-primary/90"
             size="sm"
             onClick={scrollToBottom}
           >
-            <ArrowDown className="w-4 h-4" />
+            <ArrowDown className="w-5 h-5" />
           </Button>
         )}
       </div>
@@ -444,10 +457,10 @@ const goToReport = () => {
         <div className="border-t bg-background p-4">
           <Card className="bhoomi-card">
             <CardContent className="p-4 text-center">
-              <Button 
+              <Button
                 onClick={startChat}
                 size="lg"
-                className="w-full max-w-xs"
+                className="w-full max-w-xs bhoomi-btn-glow"
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
                 Start Chat

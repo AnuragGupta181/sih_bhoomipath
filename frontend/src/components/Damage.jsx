@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Upload, Send, CheckCircle } from "lucide-react";
 import Header from '@/components/Header';
+import FloatingChatButton from "@/components/FloatingChatButton";
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -60,20 +61,18 @@ function App() {
     <>
       <Header />
 
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 mt-20">
-        <header className="bg-green-600 shadow-lg">
-          <div className="max-w-6xl mx-auto px-4 py-6">
-            <h1 className="text-3xl font-bold text-white">Image Uploader</h1>
-            <p className="text-green-100 mt-2">
-              Upload an image and see the backend response
-            </p>
+      <div className="min-h-screen bhoomi-hero-bg mt-20 animate-fade-in">
+        <header className="bhoomi-card shadow-glow mb-8 animate-float">
+          <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col items-center">
+            <h1 className="text-4xl font-extrabold bhoomi-text-gradient mb-2 tracking-tight">Damage Identifier</h1>
+            <p className="text-lg text-bhoomi-chocolate">Upload an image to detect surface damage</p>
           </div>
         </header>
 
         <main className="max-w-2xl mx-auto px-4 py-8">
-          <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+          <div className="bhoomi-card p-8 space-y-8 animate-fade-in">
             {/* Upload Section */}
-            <div className="border-2 border-dashed border-green-300 rounded-lg p-8 text-center hover:border-green-400 transition-colors">
+            <div className="border-2 border-dashed border-accent rounded-xl p-8 text-center hover:border-primary transition-colors animate-fade-in">
               <input
                 type="file"
                 accept="image/*"
@@ -82,22 +81,18 @@ function App() {
                 className="hidden"
                 id="image-upload"
               />
-              <label htmlFor="image-upload" className="cursor-pointer">
-                <Upload className="w-12 h-12 text-green-500 mx-auto mb-4" />
-                <p className="text-lg font-medium text-gray-700 mb-2">
-                  Click to upload or capture image
-                </p>
-                <p className="text-sm text-gray-500">PNG, JPG, JPEG</p>
+              <label htmlFor="image-upload" className="cursor-pointer flex flex-col items-center">
+                <Upload className="w-14 h-14 text-bhoomi-avocado mb-4 animate-float" />
+                <span className="text-xl font-semibold bhoomi-text-gradient mb-1">Click to upload or capture image</span>
+                <span className="text-sm text-bhoomi-chocolate">PNG, JPG, JPEG</span>
               </label>
             </div>
 
             {/* Image Preview */}
             {previewUrl && (
-              <div className="mt-6">
-                <h3 className="text-sm font-medium text-gray-700 mb-3">
-                  Selected Image
-                </h3>
-                <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+              <div className="mt-6 animate-fade-in">
+                <h3 className="text-base font-semibold text-bhoomi-chocolate mb-2">Selected Image</h3>
+                <div className="aspect-square bg-bhoomi-vanilla-light rounded-xl overflow-hidden flex items-center justify-center shadow-glow">
                   <img
                     src={previewUrl}
                     alt="Preview"
@@ -113,7 +108,7 @@ function App() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 px-8 rounded-lg font-semibold text-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                className="bhoomi-btn-glow w-full py-4 px-8 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
@@ -131,12 +126,12 @@ function App() {
 
             {/* Response Output */}
             {responseData && (
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="bhoomi-card border border-accent rounded-xl p-4 animate-fade-in">
                 <div className="flex items-center gap-3 mb-2">
-                  <CheckCircle className="w-5 h-5 text-green-600" />
-                  <p className="text-green-800 font-medium">Server Response:</p>
+                  <CheckCircle className="w-5 h-5 text-bhoomi-avocado" />
+                  <span className="text-bhoomi-chocolate font-semibold">Server Response:</span>
                 </div>
-                <pre className="text-sm text-gray-700 bg-gray-100 p-3 rounded-lg overflow-x-auto">
+                <pre className="text-base text-bhoomi-chocolate bg-bhoomi-vanilla-light p-3 rounded-lg overflow-x-auto">
                   {JSON.stringify(responseData.predicted_class, null, 2)}
                 </pre>
               </div>
@@ -144,6 +139,7 @@ function App() {
           </div>
         </main>
       </div>
+      <FloatingChatButton />
     </>
   );
 }

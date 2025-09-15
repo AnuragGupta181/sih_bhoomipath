@@ -6,13 +6,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
-import EcoSathi from "./components/EcoSathi";
+import EcoSathi from "./pages/EcoSathi";
 import Damage from "./components/Damage";
 import Class from "./components/Class";
 import Report from "./components/Report"
 import Contact from './components/ContactSection'
 import Loginaloo from './components/loginaloo'
-import News from './components/News'
+import News from './pages/News'
 import SummarizedNews from './components/summarizedNews'
 
 
