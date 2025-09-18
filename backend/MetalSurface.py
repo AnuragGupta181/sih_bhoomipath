@@ -5,7 +5,7 @@ import cv2
 
 model = load_model("Metal_image_Damage_Identifier.keras")
 
-class_names = ['Crazing', 'Inclusion', 'Patches', 'Pitted', 'Rolled', 'Scratches']
+class_names = ['Crazing', 'Inclusion', 'Patches', 'Pitted', 'Rolled', 'Scratches','Correct(NO Damage Found)']
 
 def predict_metal_damage(pil_img: Image.Image) -> str:
 
