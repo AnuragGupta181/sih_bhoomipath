@@ -1,27 +1,53 @@
-# Use slim Python image
-FROM python:3.11-slim
+########################
+# Stage 1 - Builder
+########################
+FROM python:3.11-slim as builder
 
-# Set working directory
+# Set workdir
 WORKDIR /app
 
-# Install system dependencies (needed for numpy, pandas, etc.)
-RUN apt-get update && apt-get install -y \
+# Install build deps (needed for compiling heavy libs)
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first (for caching)
+# Copy requirements first
 COPY requirements.txt .
 
-# Install Python dependencies
+# Replace GPU TensorFlow with CPU version (smaller)
+RUN sed -i 's/^tensorflow==/tensorflow-cpu==/' requirements.txt || true
+
+# Install all dependencies here
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-# Copy backend code
+
+########################
+# Stage 2 - Runtime
+########################
+FROM python:3.11-slim
+
+# Set workdir
+WORKDIR /app
+
+# Install only runtime system libs (for OpenCV, matplotlib, etc.)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libglib2.0-0 \
+    libsm6 \
+    libxrender1 \
+    libxext6 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy installed Python packages from builder
+COPY --from=builder /usr/local/lib/python3.11 /usr/local/lib/python3.11
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Copy your app code
 COPY . .
 
 # Expose port
 EXPOSE 8000
 
-# Start Gunicorn with limited workers/threads (saves memory on small instances)
-CMD ["gunicorn", "--bind=0.0.0.0:8000", "--workers=2", "--threads=4", "server:app"]
+# Start Gunicorn (optimized for small servers)
+CMD ["gunicorn", "--bind=0.0.0.0:8000", "--workers=2", "--threads=2", "--timeout=120", "server:app"]

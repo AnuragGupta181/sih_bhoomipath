@@ -1,0 +1,51 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+
+# Ignore virtual environments
+.venv/
+env/
+venv/
+
+# Ignore build artifacts
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Ignore Jupyter/IPython
+.ipynb_checkpoints/
+*.ipynb
+
+# Ignore logs and temp files
+*.log
+*.tmp
+*.swp
+*.DS_Store
+
+
+# Ignore local configs
+.env
+*.env
+.env.*
+
+# Ignore node-related (if you also have frontend in repo)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ignore Git
+.git/
+.gitignore
+
+# Docker-specific
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# IDE / Editor configs
+.vscode/
+.idea/
+*.iml

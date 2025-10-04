@@ -1,7 +1,7 @@
 .env
 sihenv
-node_modules
-__pycache__
+node_modules/
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
