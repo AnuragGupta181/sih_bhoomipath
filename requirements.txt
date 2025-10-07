@@ -1,0 +1,3 @@
+# This makes Railway detect Python
+# real dependencies are in backend/
+-r backend/requirements.txt
