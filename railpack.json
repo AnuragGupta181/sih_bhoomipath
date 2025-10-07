@@ -4,6 +4,6 @@
     "path": "backend"
   },
   "deploy": {
-    "startCommand": "gunicorn server:app --bind 0.0.0.0:$PORT"
+    "startCommand": "cd backend && gunicorn server:app --bind 0.0.0.0:$PORT"
   }
 }
