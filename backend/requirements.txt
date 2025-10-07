@@ -7,6 +7,7 @@ langchain==0.3.27
 langchain_community==0.3.30
 langchain_groq==0.3.8
 matplotlib==3.10.6
+gunicorn>=20.1.0
 numpy>=2.1.0,<2.3.0
 opencv_python_headless==4.12.0.88
 pandas==2.3.3
