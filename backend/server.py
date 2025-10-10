@@ -12,7 +12,9 @@ from fetch import FetchData
 from model import summarize
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(app, resources={r"/*": {"origins": ["https://sih-bhoomipath.vercel.app", "http://localhost:5173"]}})
+
 
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
