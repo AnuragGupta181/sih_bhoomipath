@@ -13,7 +13,7 @@ from model import summarize
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": ["https://sih-bhoomipath.vercel.app", "http://localhost:5173"]}})
+CORS()
 
 
 UPLOAD_FOLDER = "uploads"
